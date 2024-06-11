@@ -4,28 +4,25 @@
   <title>Open Agrow.Pay</title>
   <script type="text/javascript">
     function openApp() {
-      var timeout;
-      var t = 1000;
-      var hasApp = true;
-      setTimeout(function () {
-        if (!hasApp) {
+      var now = new Date().getTime();
+      var timeout = 2000; // 2 segundos
+
+      // Tentar abrir o aplicativo
+      window.location = "com.agrowpay://";
+
+      // Se o aplicativo não abrir, redirecionar para a Play Store após o tempo de espera
+      setTimeout(function() {
+        var end = new Date().getTime();
+        if (end - now < timeout + 500) { // Considerar um buffer adicional
           window.location = "https://play.google.com/store/apps/details?id=com.agrowpay&hl=gsw&gl=US";
         }
-      }, 25);
-
-      var start = new Date().getTime();
-      timeout = setTimeout(function () {
-        var end = new Date().getTime();
-        if (end - start < t + 100) {
-          hasApp = false;
-        }
-      }, t);
-
-      window.location = "com.agrowpay://";
+      }, timeout);
     }
+
+    window.onload = openApp;
   </script>
 </head>
-<body onload="openApp()">
+<body>
   <p>Redirecionando...</p>
 </body>
 </html>
