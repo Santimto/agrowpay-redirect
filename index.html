@@ -4,31 +4,28 @@
   <title>Open Agrow.Pay</title>
   <script type="text/javascript">
     function openApp() {
-      var start = new Date().getTime();
-      var isAppOpened = false;
-
-      setTimeout(function() {
-        if (!isAppOpened) {
+      var timeout;
+      var t = 1000;
+      var hasApp = true;
+      setTimeout(function () {
+        if (!hasApp) {
           window.location = "https://play.google.com/store/apps/details?id=com.agrowpay&hl=gsw&gl=US";
         }
-      }, 2000);
+      }, 25);
+
+      var start = new Date().getTime();
+      timeout = setTimeout(function () {
+        var end = new Date().getTime();
+        if (end - start < t + 100) {
+          hasApp = false;
+        }
+      }, t);
 
       window.location = "com.agrowpay://";
-
-      setTimeout(function() {
-        var end = new Date().getTime();
-        if (end - start < 1500) {
-          isAppOpened = false;
-        } else {
-          isAppOpened = true;
-        }
-      }, 1000);
     }
-
-    window.onload = openApp;
   </script>
 </head>
-<body>
+<body onload="openApp()">
   <p>Redirecionando...</p>
 </body>
 </html>
